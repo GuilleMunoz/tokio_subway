@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>The IAPP</title>
+    <link href="style.css" rel="stylesheet">
+    <link rel="shortcut icon" href="#" />
+    <script type="text/javascript" src="/eel.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+    
+</head>
+
+<body>
+    <section class="wellcome_area clearfix" id="home">
+        <div id='d1' style="position:absolute; top:0px; left:px; z-index:-1; width: 1000px; height: 600px;">
+            <canvas id="myCanvas" width="1000" height="600"></canvas>  
+        </div>
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12 col-md">
+                    <div class="wellcome-heading">
+                        <h2>IAPP</h2>
+                        <h3>A*</h3>
+                        <p>Find shortest route</p>
+                    </div>
+                    <div class="get-start-area">
+                        <form autocomplete="off" class="form-inline">
+                            <input list="browsers" type="text" id="from" class="form-control input" placeholder="Enter from station">
+                        </form>
+                    </div>
+                    <div class="get-start-area">
+                        <form autocomplete="off" class="form-inline">
+                            <input type="text" id="to" class="form-control input" placeholder="Enter to station">
+                        </form>
+                    </div>
+                    <script>
+                        var input = document.getElementById("from");
+                        input.addEventListener("keydown", function(event) {
+                        if (event.keyCode === 13) {
+                            event.preventDefault();
+                            document.getElementById("subButton").click();
+                        }
+                        });
+                        var input = document.getElementById("to");
+                        input.addEventListener("keydown", function(event) {
+                        if (event.keyCode === 13) {
+                            event.preventDefault();
+                            document.getElementById("subButton").click();
+                        }
+                        });
+                        document.getElementById("from").addEventListener("input", is_valid_from);
+                        document.getElementById("to").addEventListener("input", is_valid_to);
+                    </script>
+                    <div class="get-start-area">
+                        <form class="form-inline">
+                            <input type="button" id="subButton" class="submit" value="Get Route" onclick="set_canvas(); helloo();">
+                            <script>
+                                document.getElementById("subButton").disabled = true;
+                            </script>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
