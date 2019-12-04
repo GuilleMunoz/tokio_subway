@@ -64,6 +64,14 @@ function set_canvas_styles() {
 	set_text_Style("30px Arial", "white")
 }
 
+eel.expose(draw_point);
+function draw_point(coordinates, r) {
+	ctx.beginPath(); //Start path
+	ctx.arc(coordinates[0], coordinates[1], r, 0, Math.PI * 2, true); // Draw a point using the arc function of the canvas with a point structure.
+	ctx.fillStyle = "#50504e";
+    ctx.fill();
+}
+
 eel.expose(move_to);
 function move_to(coordinates) {
 	ctx.beginPath();
@@ -86,6 +94,10 @@ function put_text(text, coordinates) {
 	ctx.fillText(text, coordinates[0], coordinates[1]);
 }
 
+eel.expose(clear_canvas);
+function clear_canvas() {
+	ctx.clearRect(0, 0, c.width, c.height);
+}
 
 async function helloo() {
 
@@ -94,7 +106,7 @@ async function helloo() {
 	
 	ctx.beginPath();
 	
-	ctx.moveTo(0,0);
+	/*ctx.moveTo(0,0);
 	ctx.lineTo(1000,600);
 	ctx.lineTo(0, 600);
 	ctx.lineTo(1000, 0);
@@ -123,10 +135,15 @@ async function helloo() {
 	ctx.fillStyle = "white";
 	ctx.fillText("dist",400,400);
 
+	ctx.beginPath(); //Start path
+	ctx.arc(200, 200, 25, 0, Math.PI * 2, true); // Draw a point using the arc function of the canvas with a point structure.
+	ctx.fillStyle = "red";
+    ctx.fill(); // Close the path and fill.*/
+
 	var from = document.getElementById("from").value;
 	var to = document.getElementById("to").value;
-	var n = document.getElementById("n").value;
-	let ret = await eel.say_hello_py(from, to, n)();
+	
+	let ret = await eel.a_star_search(from, to)();
 	console.log(ret[0]);
 
 }
