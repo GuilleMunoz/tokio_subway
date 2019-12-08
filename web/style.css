@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Cabin:400,500,700|Montserrat:400,500,700');
+
 @import 'css/bootstrap.min.css';
 
 * {
@@ -47,7 +47,7 @@ p {
 }
 
 .wellcome_area {
-    background-image: url(img/bg-img/metr_japon.jpg);
+    background-image: url(img/bg-img/japon.jpg);
     z-index: -2;
     height: 600px;
     position: relative;
@@ -125,7 +125,7 @@ p {
 }
 
 .get-start-area .submit {
-    background-color: #fb397d;
+    background-color: #C01923;
     color: #fff;
     font-weight: 500;
     display: inline-block;

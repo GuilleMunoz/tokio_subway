@@ -9,8 +9,8 @@ eel.init('web', allowed_extensions=['.js', '.html'])
 DIST_INTERCHANGE = 1
 
 VERDE = '#65a15e'
-ROJO = '#eb3636'
-AMARILLO = '#fffb00'
+ROJO = '#ff3334'
+AMARILLO = '#ffcc66'
 GRIS = '#8e8e8e'
 
 metro = Graph()
@@ -38,10 +38,10 @@ yamanote_line = {
                 'tokyo' : [(35.681689, 139.766721),         {'yurakucho' : 10, 'kanda' : 10, 'ochanomizu_r' : 10}],
                 'yurakucho' : [(35.674464, 139.762311),     {'shimbashi' : 10, 'tokyo' : 10}],
                 'shimbashi' : [(35.665617, 139.758320),     {'hamamatsucho' : 10, 'yurakucho' : 10}],
-                'hamamatsucho' : [(35.655671, 139.757065),  {'tamachi' : 10, 'shimbashi' : 10}],
-                'tamachi' : [(35.645989, 139.747875),       {'shinagawa' : 10, 'hamamatsucho' : 10}],
-                'shinagawa' : [(35.628123, 139.739378),     {'osaki' : 10, 'tamachi' : 10}],
-                'osaki' : [(35.620183, 139.727706),         {'gotanda' : 10, 'shinagawa' : 10}],
+                'hamamatsucho' : [(35.655671, 139.757065),  {'tamachi' : 1.37, 'shimbashi' : 10}],
+                'tamachi' : [(35.645989, 139.747875),       {'shinagawa' : 2.19, 'hamamatsucho' : 1.37}],
+                'shinagawa' : [(35.628123, 139.739378),     {'osaki' : 2.09, 'tamachi' : 2.19}],
+                'osaki' : [(35.620183, 139.727706),         {'gotanda' : 0.8027, 'shinagawa' : 2.09}],
                 'gotanda' : [(35.626366, 139.723339),       {'meguro' : 10, 'osaki' : 10}],
                 'meguro' : [(35.634345, 139.715775),        {'ebisu' : 10, 'gotanda' : 10}],
                 'ebisu' : [(35.646901, 139.710325),         {'shibuya' : 10, 'meguro' : 10}],
@@ -91,55 +91,79 @@ def get_coords(station):
 
     return coords
 
-#draw[ station ] : [coordinates (picture), neighbors = {neighbor_1 : [color, path(station, neighbor_1)], ...}]
+#draw[ station ] : [coordinates (picture), neighbors = {neighbor_1 : [color, path(station, neighbor_1)], ...}, size, name_coords]
 #path(station, neighbor_i) = [path_coordinate_1, ...]
-draw = {'mejiro' : [(553,158),        {'ikebukuro': [VERDE, [()]], 'takadanobaba' : [VERDE, []]}],
-            'ikebukuro' : [(617,117),     {'otsuka' : [VERDE, []], 'mejiro' : [VERDE, [()]]}],
-            'otsuka' : [(687,117),        {'sugamo' : [VERDE, []], 'ikebukuro' : [VERDE, []]}],
-            'sugamo' : [(),        {'komagome' : [VERDE, []], 'otsuka' : [VERDE, []]}],
-            'komagome' : [(760,117),      {'tabata' : [VERDE, [()]], 'sugamo' : [VERDE, []]}],
-            'tabata' : [(802,136),        {'nishi-nippori' : [VERDE, []], 'komagome' : [VERDE, [()]]}],
-            'nishi-nippori' : [(825,153), {'nippori' : [VERDE, [()]],'tabata' : [VERDE, []]}],
-            'nippori' : [(830,190),       {'uguisudani' : [VERDE, []], 'nishi-nippori' : [VERDE, [()]]}],
-            'uguisudani' : [(830,218),    {'ueno' : [VERDE, []], 'nippori' : [VERDE, []]}],
-            'ueno' : [(830,248),          {'okachimachi' : [VERDE, []], 'uguisudani' : [VERDE, []]}],
-            'okachimachi' : [(830,280),   {'akihabara' : [VERDE, []], 'ueno' : [VERDE, []]}],
-            'akihabara' : [(830,311),     {'kanda' : [VERDE, []], 'okachimachi' : [VERDE, []], 'ochanomizu_a' : [AMARILLO, []]}],
-            'kanda' : [(830,357),         {'tokyo' : [VERDE, []], 'akihabara' : [VERDE, []]}],
-            'tokyo' : [(830,400),         {'yurakucho' : [VERDE, [()]], 'kanda' : [VERDE, []], 'ochanomizu_r' : [ROJO, [(), (), ()]]}],
-            'yurakucho' : [(827,440),     {'shimbashi' : [VERDE, []], 'tokyo' : [VERDE, [()]]}],
-            'shimbashi' : [(801,467),     {'hamamatsucho' : [VERDE, []], 'yurakucho' : [VERDE, []]}],
-            'hamamatsucho' : [(770,494),  {'tamachi' : [VERDE, []], 'shimbashi' : [VERDE, []]}],
-            'tamachi' : [(737,530),       {'shinagawa' : [VERDE, []], 'hamamatsucho' : [VERDE, []]}],
-            'shinagawa' : [(704,565),     {'osaki' : [VERDE, [()]], 'tamachi' : [VERDE, []]}],
-            'osaki' : [(641,575),         {'gotanda' : [VERDE, []], 'shinagawa' : [VERDE, [()]]}],
-            'gotanda' : [(602,575),       {'meguro' : [VERDE, []], 'osaki' : [VERDE, []]}],
-            'meguro' : [(565,575),        {'ebisu' : [VERDE, [(), ()]], 'gotanda' : [VERDE, []]}],
-            'ebisu' : [(512,545),         {'shibuya' : [VERDE, []], 'meguro' : [VERDE, [(), ()]]}],
-            'shibuya' : [(512,488),       {'harajuku' : [VERDE, []], 'ebisu' : [VERDE, []]}],
-            'harajuku' : [(512,440),      {'yoyogi_v' : [VERDE, []], 'shibuya' : [VERDE, []]}],
-            'yoyogi_v' : [(512,461),      {'shinjuku_v' : [VERDE, []], 'harajuku' : [VERDE, []], 'yoyogi_a' : [GRIS, []]}],
-            'shinjuku_v' : [(),    {'shin-okubo' : [VERDE, []], 'yoyogi_v' : [VERDE, []], 'shinjuku_a': [GRIS, []], 'shinjuku_r': [GRIS, []]}],
-            'shin-okubo' : [(),    {'takadanobaba' : [VERDE, [()]], 'shinjuku_v' : [VERDE, []]}],
-            'takadanobaba' : [(),  {'mejiro' : [VERDE, []], 'shin-okubo' : [VERDE, [()]]}],
-            'shinjuku_a': [(),     {'yoyogi_a' : [AMARILLO, []], 'shinjuku_v': [GRIS, []], 'shinjuku_r': [GRIS, []]}],
-            'yoyogi_a' : [(465,362),      {'sendagaya' : [AMARILLO, [()]], 'shinjuku_a': [AMARILLO, []], 'yoyogi_v' : [GRIS, []]}],
-            'sendagaya' : [(),     {'shinanomachi' : [AMARILLO, []], 'yoyogi_a' : [AMARILLO, [()]]}],
-            'shinanomachi' : [(),  {'yotsuya' : [AMARILLO, [()]], 'sendagaya' : [AMARILLO, []]}],
-            'yotsuya' : [(),       {'lichigaya' : [AMARILLO, []], 'shinanomachi' : [AMARILLO, [()]]}],
-            'lichigaya' : [(),     {'lidabashi' : [AMARILLO, []], 'yotsuya' : [AMARILLO, []]}],
-            'lidabashi' : [(),     {'suidobashi': [AMARILLO, []], 'lichigaya' : [AMARILLO, []]}],
-            'suidobashi': [(),     {'ochanomizu_a' : [AMARILLO, [()]], 'lidabashi' : [AMARILLO, []]}],
-            'ochanomizu_a' : [(),  {'akihabara' : [AMARILLO, []], 'suidobashi': [AMARILLO, [()]]}],
-            'shinjuku_r' : [(),    {'ochanomizu_r' : [ROJO, [(), (), ()]], 'shinjuku_a': [GRIS, []], 'shinjuku_v': [GRIS, []]}],
-            'ochanomizu_r' : [(),  {'tokyo' : [ROJO, [(), (), ()]], 'shinjuku_r' : [ROJO, [(), (), ()]]}]
-            }
+'''
+name = station
+
+if name[-2] == '_':
+    name = name[:-2]
+
+size = 9 || 6
+
+'''
+draw = {'mejiro' : [(553,158),        {'ikebukuro': [VERDE, [(592, 117)]], 'takadanobaba' : [VERDE, []]}, 6, (504, 150), 0],
+            'ikebukuro' : [(617,117),     {'otsuka' : [VERDE, []], 'mejiro' : [VERDE, [(592, 117)]]}, 9, (622, 103), -1/4],
+            'otsuka' : [(687,117),        {'sugamo' : [VERDE, []], 'ikebukuro' : [VERDE, []]}, 6, (688, 103), -1/4],
+            'sugamo' : [(722, 117),       {'komagome' : [VERDE, []], 'otsuka' : [VERDE, []]}, 6, (725, 103), -1/4],
+            'komagome' : [(760,117),      {'tabata' : [VERDE, [(785, 117)]], 'sugamo' : [VERDE, []]}, 6, (765, 103), -1/4],
+            'tabata' : [(802,136),        {'nishi-nippori' : [VERDE, []], 'komagome' : [VERDE, [(785, 117)]]}, 9, (814, 126), -1/4],
+            'nishi-nippori' : [(825,153), {'nippori' : [VERDE, [(830, 160)]],'tabata' : [VERDE, []]}, 6, (838, 149), -1/4],
+            'nippori' : [(830,190),       {'uguisudani' : [VERDE, []], 'nishi-nippori' : [VERDE, [(830, 160)]]}, 9, (842, 195), 0],
+            'uguisudani' : [(830,218),    {'ueno' : [VERDE, []], 'nippori' : [VERDE, []]}, 6, (842, 224), 0],
+            'ueno' : [(830,248),          {'okachimachi' : [VERDE, []], 'uguisudani' : [VERDE, []]}, 9, (842, 253), 0],
+            'okachimachi' : [(830,280),   {'akihabara' : [VERDE, []], 'ueno' : [VERDE, []]}, 6, (842, 282), 0],
+            'akihabara' : [(830,311),     {'kanda' : [VERDE, []], 'okachimachi' : [VERDE, []], 'ochanomizu_a' : [AMARILLO, []]}, 9, (842, 330), 0],
+            'kanda' : [(830,357),         {'tokyo' : [VERDE, []], 'akihabara' : [VERDE, []]}, 9, (842, 360), 0],
+            'tokyo' : [(830,400),         {'yurakucho' : [VERDE, [(830, 435)]], 'kanda' : [VERDE, []], 'ochanomizu_r' : [ROJO, [(798, 400), (798, 337), (753, 289)]]}, 9, (773, 421), 0],
+            'yurakucho' : [(827,440),     {'shimbashi' : [VERDE, []], 'tokyo' : [VERDE, [(830, 435)]]}, 6, (837, 450), 0],
+            'shimbashi' : [(801,467),     {'hamamatsucho' : [VERDE, []], 'yurakucho' : [VERDE, []]}, 6, (812, 476), 0],
+            'hamamatsucho' : [(770,494),  {'tamachi' : [VERDE, []], 'shimbashi' : [VERDE, []]}, 9, (786, 502), 0],
+            'tamachi' : [(737,530),       {'shinagawa' : [VERDE, []], 'hamamatsucho' : [VERDE, []]}, 6, (748, 538), 0],
+            'shinagawa' : [(704,565),     {'osaki' : [VERDE, [(693, 575)]], 'tamachi' : [VERDE, []]}, 9, (718, 577), 0],
+            'osaki' : [(641,575),         {'gotanda' : [VERDE, []], 'shinagawa' : [VERDE, [(693, 575)]]}, 9, (650, 563), -1/4],
+            'gotanda' : [(602,575),       {'meguro' : [VERDE, []], 'osaki' : [VERDE, []]}, 6, (608, 563), -1/4],
+            'meguro' : [(565,575),        {'ebisu' : [VERDE, [(537, 575), (510, 545)]], 'gotanda' : [VERDE, []]}, 6, (566, 563), -1/4],
+            'ebisu' : [(510,540),         {'shibuya' : [VERDE, []], 'meguro' : [VERDE, [(510, 545), (537, 575)]]}, 6, (460, 553), 0],
+            'shibuya' : [(510,488),       {'harajuku' : [VERDE, []], 'ebisu' : [VERDE, []]}, 6, (442, 493), 0],
+            'harajuku' : [(510,440),      {'yoyogi_v' : [VERDE, []], 'shibuya' : [VERDE, []]}, 6, (435, 444), 0],
+            'yoyogi_v' : [(510,362),      {'shinjuku_v' : [VERDE, []], 'harajuku' : [VERDE, []], 'yoyogi_a' : [GRIS, []]}, 9, (523, 367), 0],
+            'shinjuku_v' : [(510, 322),    {'shin-okubo' : [VERDE, []], 'yoyogi_v' : [VERDE, []], 'shinjuku_a': [GRIS, []], 'shinjuku_r': [GRIS, []]}, 9, (523, 328), 0],
+            'shin-okubo' : [(510, 238),    {'takadanobaba' : [VERDE, [(510, 200)]], 'shinjuku_v' : [VERDE, []]}, 6, (523, 244), 0],
+            'takadanobaba' : [(516, 195),  {'mejiro' : [VERDE, []], 'shin-okubo' : [VERDE, [(510, 200)]]}, 6, (404, 189), 0],
+            'shinjuku_a': [(465, 322),     {'yoyogi_a' : [AMARILLO, []], 'shinjuku_v': [GRIS, []], 'shinjuku_r': [GRIS, []]}, 9, (523, 328), 0],
+            'yoyogi_a' : [(465,362),      {'sendagaya' : [AMARILLO, [(465, 410)]], 'shinjuku_a': [AMARILLO, []], 'yoyogi_v' : [GRIS, []]}, 9, (523, 367), 0],
+            'sendagaya' : [(535, 410),     {'shinanomachi' : [AMARILLO, []], 'yoyogi_a' : [AMARILLO, [(465, 410)]]}, 6, (532, 424), 1/4],
+            'shinanomachi' : [(580, 410),  {'yotsuya' : [AMARILLO, [(585, 410)]], 'sendagaya' : [AMARILLO, []]}, 6, (584, 429), 0],
+            'yotsuya' : [(607, 388),       {'lichigaya' : [AMARILLO, []], 'shinanomachi' : [AMARILLO, [()]]}, 6, (621, 395), 0],
+            'lichigaya' : [(624, 368),     {'lidabashi' : [AMARILLO, []], 'yotsuya' : [AMARILLO, []]}, 6, (638, 375), 0],
+            'lidabashi' : [(643, 349),     {'suidobashi': [AMARILLO, []], 'lichigaya' : [AMARILLO, []]}, 6, (656, 356), 0],
+            'suidobashi': [(662, 341),     {'ochanomizu_a' : [AMARILLO, [(682, 310)]], 'lidabashi' : [AMARILLO, []]}, 6, (676, 338), 0],
+            'ochanomizu_a' : [(690, 310),  {'akihabara' : [AMARILLO, []], 'suidobashi': [AMARILLO, [(682, 310)]]}, 9, (719, 277), -1/4],
+            'shinjuku_r' : [(485, 322),    {'ochanomizu_r' : [ROJO, [(485, 385), (583, 385), (676, 289)]], 'shinjuku_a': [GRIS, []], 'shinjuku_v': [GRIS, []]}, 9, (523, 328), 0],
+            'ochanomizu_r' : [(710, 289),  {'tokyo' : [ROJO, [(753, 289), (798, 337), (798, 400)]], 'shinjuku_r' : [ROJO, [(676, 289), (583, 385), (485, 385)]]}, 9, (719, 277), -1/4] }
 
 @eel.expose
 def say_hello_py(f, t, n):
     print(f + ' ' + t + ' ' + n)
     return ['  ajdsgf ', 1, 2, 3]
 
+
+#Draw metro map
+@eel.expose
+def draw_map():
+    for station in draw.keys():
+        for neighbor in draw[station][1]:
+            print(neighbor)
+            draw_line(station, neighbor)
+
+def put_name(station):
+    name = station.capitalize()
+
+    if name[-2] == '_':
+        name = name[:-2]
+    
+    eel.add_name(name, draw[station][-1], draw[station][-2])
 
 def draw_line(from_station, to_station):
 
@@ -151,8 +175,13 @@ def draw_line(from_station, to_station):
     eel.draw_line_to(draw[to_station][0])
 
     eel.set_line_color(draw[from_station][1][to_station][0])
-    eel.draw_point(draw[from_station][0], 10)
-    eel.draw_point(draw[to_station][0], 10)
+
+    eel.draw_point(draw[from_station][0], draw[from_station][-3])
+    put_name(from_station)
+
+    eel.draw_point(draw[to_station][0], draw[to_station][-3])
+    put_name(to_station)
+
 
 def set_graph():
     
@@ -171,7 +200,6 @@ def set_graph():
 
 # The heuristic def. h(n) estimates the cost to reach goal from node n.
 def heuristic(a, b):
-
     return geodesic(get_coords(a), get_coords(b)).kilometers
 
 @eel.expose
@@ -203,15 +231,22 @@ def a_star_search(start, goal):
                 frontier.put((f_next, next))
                 came_from[next] = current
                 
-                draw_line(current, next)
+                if current not in interchange_stations:
+                    draw_line(current, next)
+                
                 time.sleep(0.2)
 
+    time.sleep(1.5)
     last = current
+    
+    eel.clear_canvas()
 
     while True:
-        print(last)
-        if last == start:
+        
+        if last == start or last[:-2] == start:
             break
+        print(last, '<--', came_from[last])
+        draw_line(last, came_from[last])
         last = came_from[last]
         
     return came_from, cost_so_far

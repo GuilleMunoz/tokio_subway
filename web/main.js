@@ -51,6 +51,7 @@ var ctx;
 function set_canvas() {
 	c = document.getElementById("myCanvas");
 	ctx = c.getContext("2d");
+	ctx.lineWidth = 13;
 }
 
 //font_style = font
@@ -61,7 +62,7 @@ function set_text_Style(font_style, font_color) {
 
 function set_canvas_styles() {
 	set_canvas();
-	set_text_Style("30px Arial", "white")
+	set_text_Style("15px Helvetica", "#000000")
 }
 
 eel.expose(draw_point);
@@ -99,9 +100,26 @@ function clear_canvas() {
 	ctx.clearRect(0, 0, c.width, c.height);
 }
 
+function draw_map() {
+	eel.draw_map()();	
+}
+
+eel.expose(add_name);
+function add_name(station, ang, coordinates){
+	ctx.save();
+
+	ctx.translate(coordinates[0], coordinates[1]);
+	ctx.rotate(ang * Math.PI);
+
+	ctx.textAlign = 'left';
+	ctx.fillText(station, 0, 0);
+
+	ctx.restore();
+}
+
 async function helloo() {
 
-	ctx.lineWidth = 13;
+	ctx.lineWidth = 11;
 	ctx.lineJoin = "round";
 	
 	ctx.beginPath();
@@ -129,16 +147,8 @@ async function helloo() {
 	
 	ctx.strokeStyle = '#00ffff';
 	ctx.stroke();
-
+	*/
 	//Writes dist...
-	ctx.font = "30px Arial";
-	ctx.fillStyle = "white";
-	ctx.fillText("dist",400,400);
-
-	ctx.beginPath(); //Start path
-	ctx.arc(200, 200, 25, 0, Math.PI * 2, true); // Draw a point using the arc function of the canvas with a point structure.
-	ctx.fillStyle = "red";
-    ctx.fill(); // Close the path and fill.*/
 
 	var from = document.getElementById("from").value;
 	var to = document.getElementById("to").value;

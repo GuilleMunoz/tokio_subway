@@ -19,6 +19,10 @@
         <div id='d1' style="position:absolute; top:0px; left:px; z-index:-1; width: 1000px; height: 600px;">
             <canvas id="myCanvas" width="1000" height="600"></canvas>  
         </div>
+        <script>
+            set_canvas_styles();
+            draw_map();
+        </script>
         <div class="container h-100">
             <div class="row h-100 align-items-center">
                 <div class="col-12 col-md">
@@ -57,7 +61,7 @@
                     </script>
                     <div class="get-start-area">
                         <form class="form-inline">
-                            <input type="button" id="subButton" class="submit" value="Get Route" onclick="set_canvas(); helloo();">
+                            <input type="button" id="subButton" class="submit" value="Get Route" onclick="helloo();">
                             <script>
                                 document.getElementById("subButton").disabled = true;
                             </script>
