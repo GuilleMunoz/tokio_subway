@@ -3,7 +3,7 @@ var is_to_ok = false;
 
 async function is_valid_from(){
 	
-	var from = document.getElementById("from").value;
+	let from = await eel.format(document.getElementById("from").value)();
 	let is_station = await eel.is_station(from)();
 
 	if (from == ''){
@@ -25,7 +25,7 @@ async function is_valid_from(){
 
 async function is_valid_to(){
 	
-	var to = document.getElementById("to").value;
+	let to = await eel.format(document.getElementById("to").value)();
 	let is_station = await eel.is_station(to)();
 
 	if (to == ''){
@@ -62,7 +62,7 @@ function set_text_Style(font_style, font_color) {
 
 function set_canvas_styles() {
 	set_canvas();
-	set_text_Style("15px Helvetica", "#000000")
+	set_text_Style("15px Helvetica", "black")
 }
 
 eel.expose(draw_point);
@@ -150,8 +150,8 @@ async function helloo() {
 	*/
 	//Writes dist...
 
-	var from = document.getElementById("from").value;
-	var to = document.getElementById("to").value;
+	let from = await eel.format(document.getElementById("from").value)();
+	let to = await eel.format(document.getElementById("to").value)();
 	
 	let ret = await eel.a_star_search(from, to)();
 	console.log(ret[0]);

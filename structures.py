@@ -25,7 +25,7 @@ class Graph:
 
 		self.graph = graph
 
-	def cost(self, node, next_node):
+	def get_cost(self, node, next_node):
 		return self.graph[node][next_node]
 
 	def is_node(self, node):

@@ -29,7 +29,7 @@
                     <div class="wellcome-heading">
                         <h2>IAPP</h2>
                         <h3>A*</h3>
-                        <p>Find shortest route</p>
+                        <p>Finds the shortest route</p>
                     </div>
                     <div class="get-start-area">
                         <form autocomplete="off" class="form-inline">
@@ -42,18 +42,17 @@
                         </form>
                     </div>
                     <script>
-                        var input = document.getElementById("from");
-                        input.addEventListener("keydown", function(event) {
+
+                        document.addEventListener("keydown", function(event) {
                         if (event.keyCode === 13) {
                             event.preventDefault();
-                            document.getElementById("subButton").click();
-                        }
-                        });
-                        var input = document.getElementById("to");
-                        input.addEventListener("keydown", function(event) {
-                        if (event.keyCode === 13) {
-                            event.preventDefault();
-                            document.getElementById("subButton").click();
+
+                            if (document.getElementById("from").value === "" && document.getElementById("to").value === "") {
+                                draw_map();
+                            }
+                            else {
+                                document.getElementById("subButton").click();
+                            }
                         }
                         });
                         document.getElementById("from").addEventListener("input", is_valid_from);
@@ -62,9 +61,6 @@
                     <div class="get-start-area">
                         <form class="form-inline">
                             <input type="button" id="subButton" class="submit" value="Get Route" onclick="helloo();">
-                            <script>
-                                document.getElementById("subButton").disabled = true;
-                            </script>
                         </form>
                     </div>
                 </div>
