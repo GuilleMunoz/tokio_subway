@@ -54,7 +54,7 @@ yamanote_line = {
                 }
 
 chuo_line = {
-            'Shinjuku_r' : [(35.690142, 139.700905),    {'Ochanomizu_r' : 10, 'Shinjuku_a': DIST_INTERCHANGE, 'Shinjuku_v': DIST_INTERCHANGE}],
+            'Shinjuku_r' : [(35.690142, 139.700905),    {'Ochanomizu_r' : 7.77, 'Shinjuku_a': DIST_INTERCHANGE, 'Shinjuku_v': DIST_INTERCHANGE}],
             'Ochanomizu_r' : [(35.700785, 139.763734),  {'Tokyo' : 2.23, 'Shinjuku_r' : 7.77}]
             }
 
@@ -175,7 +175,8 @@ def put_name(station):
     
     eel.add_name(name, draw[station][-1], draw[station][-2])
 
-def draw_line(from_station, to_station):
+
+def draw_line(from_station, to_station, color = '#50504e'):
 
     eel.move_to(draw[from_station][0])
 
@@ -186,10 +187,11 @@ def draw_line(from_station, to_station):
 
     eel.set_line_color(draw[from_station][1][to_station][0])
 
-    eel.draw_point(draw[from_station][0], draw[from_station][-3])
+    eel.draw_point(draw[from_station][0], draw[from_station][-3], '#50504e')
+    eel.draw_point(draw[to_station][0], draw[to_station][-3], color)
+    
+    eel.set_text_Style("15px Helvetica", "black")
     put_name(from_station)
-
-    eel.draw_point(draw[to_station][0], draw[to_station][-3])
     put_name(to_station)
 
 
@@ -245,10 +247,11 @@ def a_star_search(start, goal):
                 came_from[next] = current
                 
                 if current not in interchange_stations:
-                    draw_line(current, next)
+                    draw_line(current, next, '#00ffff')
                 
                 time.sleep(0.2)
 
+    eel.delimage()
     time.sleep(1.5)
     last = current
     
@@ -270,6 +273,9 @@ def a_star_search(start, goal):
         last = current
     
     print(dist)
+    eel.set_text_Style("20px Helvetica", "#3f3e3e")
+    eel.add_name('Total distance: %s km' % str(round(dist, 3)), 0, (140, 550))
+    eel.set_text_Style("15px Helvetica", "black")
         
     return came_from, cost_so_far
 

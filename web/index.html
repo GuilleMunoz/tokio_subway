@@ -15,10 +15,12 @@
 </head>
 
 <body>
+    
     <section class="wellcome_area clearfix" id="home">
-        <div id='d1' style="position:absolute; top:0px; left:px; z-index:-1; width: 1000px; height: 600px;">
+        <div id='d1' style="position:absolute; top:0px; left:px; z-index:-2; width: 1000px; height: 600px;">
             <canvas id="myCanvas" width="1000" height="600"></canvas>  
         </div>
+        <img id='img' style="position:absolute; top:50px; left:250px; z-index:1;">
         <script>
             set_canvas_styles();
             draw_map();
@@ -60,7 +62,7 @@
                     </script>
                     <div class="get-start-area">
                         <form class="form-inline">
-                            <input type="button" id="subButton" class="submit" value="Get Route" onclick="helloo();">
+                            <input type="button" id="subButton" class="submit" value="Get Route" onclick=" helloo();">
                         </form>
                     </div>
                 </div>

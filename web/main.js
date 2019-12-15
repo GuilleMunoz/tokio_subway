@@ -9,17 +9,14 @@ async function is_valid_from(){
 	if (from == ''){
 		document.getElementById("from").style.border = "none";
 		is_from_ok = false;
-		document.getElementById("subButton").disabled = true;
 	}
 	else if (is_station){
-		document.getElementById("from").style.border = "thick solid rgb(0, 204, 0)";
+		document.getElementById("from").style.border = "thick solid #4fa262";
 		is_from_ok = true;
-		document.getElementById("subButton").disabled = !(is_from_ok && is_to_ok);
 	}
 	else{
-		document.getElementById("from").style.border = "thick solid #FF0000";
+		document.getElementById("from").style.border = "thick solid #ff3334";
 		is_from_ok = false;
-		document.getElementById("subButton").disabled = true;
 	}
 }
 
@@ -31,17 +28,14 @@ async function is_valid_to(){
 	if (to == ''){
 		document.getElementById("to").style.border = "none";
 		is_to_ok = false;
-		document.getElementById("subButton").disabled = true;
 	}
 	else if (is_station){
-		document.getElementById("to").style.border = "thick solid rgb(0, 204, 0)";
+		document.getElementById("to").style.border = "thick solid #4fa262";
 		is_to_ok = true;
-		document.getElementById("subButton").disabled = !(is_from_ok && is_to_ok);
 	}
 	else{
-		document.getElementById("to").style.border = "thick solid #FF0000";
+		document.getElementById("to").style.border = "thick solid #ff3334";
 		is_to_ok = false;
-		document.getElementById("subButton").disabled = true;
 	}
 }
 
@@ -55,6 +49,7 @@ function set_canvas() {
 }
 
 //font_style = font
+eel.expose(set_text_Style);
 function set_text_Style(font_style, font_color) {
 	ctx.font = font_style;
 	ctx.fillStyle = font_color;
@@ -66,10 +61,10 @@ function set_canvas_styles() {
 }
 
 eel.expose(draw_point);
-function draw_point(coordinates, r) {
+function draw_point(coordinates, r, color) {
 	ctx.beginPath(); //Start path
 	ctx.arc(coordinates[0], coordinates[1], r, 0, Math.PI * 2, true); // Draw a point using the arc function of the canvas with a point structure.
-	ctx.fillStyle = "#50504e";
+	ctx.fillStyle = color;
     ctx.fill();
 }
 
@@ -124,36 +119,26 @@ async function helloo() {
 	
 	ctx.beginPath();
 	
-	/*ctx.moveTo(0,0);
-	ctx.lineTo(1000,600);
-	ctx.lineTo(0, 600);
-	ctx.lineTo(1000, 0);
+	if (!(is_from_ok && is_to_ok)){
+		draw_map();
+	}
+	else{
+		addimage();
+		let from = await eel.format(document.getElementById("from").value)();
+		let to = await eel.format(document.getElementById("to").value)();
+		
+		let ret = await eel.a_star_search(from, to)();
+		console.log(ret[0]);
+	}
+}
 
-	ctx.strokeStyle = '#65a15e';
-	ctx.stroke();
-	
-	ctx.beginPath();
+function addimage() { 
+	var img = document.getElementById("img");
+	img.src = "shin-chan.gif"; 
+}
 
-	ctx.moveTo(0,0);
-	ctx.lineTo(300,300);
-
-	ctx.strokeStyle = '#ffffff';
-	ctx.stroke();
-
-	ctx.beginPath();
-
-	ctx.moveTo(300,300);
-	ctx.lineTo(400,400);
-	
-	ctx.strokeStyle = '#00ffff';
-	ctx.stroke();
-	*/
-	//Writes dist...
-
-	let from = await eel.format(document.getElementById("from").value)();
-	let to = await eel.format(document.getElementById("to").value)();
-	
-	let ret = await eel.a_star_search(from, to)();
-	console.log(ret[0]);
-
+eel.expose(delimage);
+function delimage() { 
+	var img = document.getElementById("img");
+	img.src = ""; 
 }

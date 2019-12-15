@@ -47,7 +47,7 @@ p {
 }
 
 .wellcome_area {
-    background-image: url(img/bg-img/japon_3_0.png);
+    background-image: url(img/bg-img/japon_3_4.png);
     z-index: -2;
     height: 600px;
     position: relative;
@@ -59,7 +59,7 @@ p {
 
 .wellcome-heading > h2 {
     font-size: 80px;
-    color: #ffffff;
+    color: #3f3e3e;
     font-weight: 700;
     position: relative;
     z-index: 3;
@@ -78,9 +78,9 @@ p {
     font-weight: 900;
     left: -12px;
     z-index: -1;
-    color: #fff;
+    color: #3f3e3e;
     opacity: .4;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
 }
 
 .wellcome-heading {
@@ -88,7 +88,7 @@ p {
 }
 
 .get-start-area .input {
-    background: #9572e8;
+    background: #8e8e8e;
     height: 50px;
     max-width: 260px;
     border: none;
@@ -107,13 +107,9 @@ p {
     opacity: 1;
 }
 
-.form-control::-ms-input-placeholder {
-    color: #cec1f4;
-    opacity: 1;
-}
 
 .form-control::placeholder {
-    color: #cec1f4;
+    color: #fff;
     opacity: 1;
 }
 
@@ -139,7 +135,7 @@ p {
 }
 
 .get-start-area .submit:hover {
-    background: #6f52e5;
+    background: #4fa262;
     color: #fff;
     -webkit-transition-duration: 500ms;
     -o-transition-duration: 500ms;
