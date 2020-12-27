@@ -1,21 +1,21 @@
 # metro_japon
-App para hallar la distancia minima entre dos estaciones del metro de japon (con menos estaciones).
-Para encontrar la distancia minima usa el algortimo A*
+App for finding the shortest distance (using A*) between two stations of a reduce Tokio subway.
 
 ## Interface
-Interfaz de que sale al inicio
+
+GUI before searching
 
 ![picture](interfaz/Interfaz.png)
 
 ---
 
-Interfaz que aparece al buscar
+GUI when looking for a wrong station.
 
 ![picture](interfaz/Interfaz2.png)
 
 ---
 
-Interfaz de que sale despues de buscar
+GUI after searching
 
 ![picture](interfaz/interfaz3.png)
 
