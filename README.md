@@ -1,4 +1,5 @@
-# metro_japon
+# tokio_subway
+
 App for finding the shortest distance (using A*) between two stations of a reduce Tokio subway.
 
 ## Interface
